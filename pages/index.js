@@ -4,6 +4,7 @@ import { get } from "lodash";
 import withAuthUserInfo from "utils/wrappers/withAuthUserInfo";
 import withAuthUser from "utils/wrappers/withAuthUser";
 import Link from "next/link";
+import UserWall from "features/walls/UserWall";
 
 const TagBar = () => {
   return (
@@ -21,7 +22,8 @@ const SignedIn = () => {
         <div>
           <Logo />
         </div>
-        <div className="flex justify-center flex-row flex-grow cursor-pointer">
+        <div className="flex-grow"></div>
+        <div className="nav flex justify-center flex-row cursor-pointer">
           <div className="font-bold mr-2">You</div>
           <div className="text-gray-500">Everyone</div>
         </div>
@@ -35,7 +37,9 @@ const SignedIn = () => {
         </div>
       </div>
 
-      <div className="p-4 bg-gray-100 min-h-screen"></div>
+      <div className="p-4 bg-gray-100 min-h-screen">
+        <UserWall />
+      </div>
     </div>
   );
 };

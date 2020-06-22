@@ -6,6 +6,9 @@ class Spinner extends Component {
     return (
       <div className="Spinner">
         <Logo />
+        {this.props.text ? (
+          <div className="mt-4 text-gray-600">{this.props.text}</div>
+        ) : null}
       </div>
     );
   }

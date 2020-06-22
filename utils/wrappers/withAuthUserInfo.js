@@ -22,7 +22,7 @@ export default function withAuthUserInfo(ComposedComponent) {
   };
 
   WithAuthUserInfoComp.getInitialProps = async (ctx) => {
-    const AuthUserInfo = get(ctx, "myCustomData.AuthUserInfo", null);
+    const AuthUserInfo = get(ctx, "userInfo.AuthUserInfo", null);
 
     // Evaluate the composed component's getInitialProps().
     let composedInitialProps = {};

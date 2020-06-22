@@ -66,7 +66,7 @@ export default function withAuthUser(ComposedComponent) {
 
     // Explicitly add the user to a custom prop in the getInitialProps
     // context for ease of use in child components.
-    set(ctx, "myCustomData.AuthUserInfo", AuthUserInfo);
+    set(ctx, "userInfo.AuthUserInfo", AuthUserInfo);
 
     // Evaluate the composed component's getInitialProps().
     let composedInitialProps = {};
