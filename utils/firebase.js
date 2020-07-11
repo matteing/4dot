@@ -67,7 +67,7 @@ export const useFirebaseAuth = () => {
 
 export const getOrCreateUserDocument = async (user, additionalData) => {
   // If there is no user, let's not do this.
-  if (!user) return;
+  if (!user) return null;
 
   // Get a reference to the location in the Firestore where the user
   // document may or may not exist.
@@ -90,6 +90,7 @@ export const getOrCreateUserDocument = async (user, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
+      console.log(error);
       console.error("Error creating user", console.error);
     }
   }

@@ -4,6 +4,8 @@ import Dot from "features/dots/Dot";
 import Spinner from "components/Spinner";
 import { firestore } from "utils/firebase";
 
+// todo figure out how to add profiles
+
 const items = [
   {
     description: "Lovely colors #pallettes",

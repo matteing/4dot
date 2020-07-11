@@ -3,7 +3,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { get, set } from "lodash/object";
-import { AuthUserInfoContext, useFirebaseAuth } from "../firebase";
+import {
+  AuthUserInfoContext,
+  useFirebaseAuth,
+  getOrCreateUserDocument,
+} from "../firebase";
 import { createAuthUser, createAuthUserInfo } from "../user";
 
 // Gets the authenticated user from the Firebase JS SDK, when client-side,
@@ -40,10 +44,15 @@ export default function withAuthUser(ComposedComponent) {
       // https://arunoda.me/blog/ssr-and-server-only-modules
       const { addSession } = require("../middleware/cookieSession");
       addSession(req, res);
-      AuthUserInfo = createAuthUserInfo({
-        firebaseUser: get(req, "session.decodedToken", null),
-        token: get(req, "session.token", null),
-      });
+      AuthUserInfo = {
+        ...createAuthUserInfo({
+          firebaseUser: get(req, "session.decodedToken", null),
+          token: get(req, "session.token", null),
+        }),
+        profile: await getOrCreateUserDocument(
+          get(req, "session.decodedToken", null)
+        ),
+      };
     } else {
       // If client-side, get AuthUserInfo from stored data. We store it
       // in _document.js. See:
@@ -56,11 +65,11 @@ export default function withAuthUser(ComposedComponent) {
           AuthUserInfo = jsonData;
         } else {
           // Use the default (unauthed) user info if there's no data.
-          AuthUserInfo = createAuthUserInfo();
+          AuthUserInfo = { ...createAuthUserInfo(), profile: null };
         }
       } catch (e) {
         // If there's some error, use the default (unauthed) user info.
-        AuthUserInfo = createAuthUserInfo();
+        AuthUserInfo = { ...createAuthUserInfo(), profile: null };
       }
     }
 
